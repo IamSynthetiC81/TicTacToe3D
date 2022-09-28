@@ -1,0 +1,8 @@
+class Player {
+
+    String Name;
+
+    @TODO add statistics
+    Stats Statistics ;
+
+}
