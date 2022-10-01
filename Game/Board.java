@@ -1,3 +1,7 @@
+import javax.naming.directory.InvalidAttributesException;
+
+import Exceptions.InvalidLevel;
+import Exceptions.LevelOutOfBounds;
 
 public class Board {
 
@@ -25,5 +29,9 @@ public class Board {
         assert j >= 0 && j <= BoardDimentions :"j out of bounds";
         
         return Board[i][j];
+    }
+
+    public void MakeMove(Cell cell, Player player, int level) throws InvalidLevel, LevelOutOfBounds, NullPointerException{
+        cell.makeMove(player, level, false);       
     }
 }

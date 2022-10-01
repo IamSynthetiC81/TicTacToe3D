@@ -2,6 +2,9 @@ import java.lang.System.Logger.Level;
 
 import javax.naming.directory.InvalidAttributesException;
 
+import Exceptions.InvalidLevel;
+import Exceptions.LevelOutOfBounds;
+
 public class Cell {
     private static int VerticalCoordinate;
     private static int HorizontalCoordinate;
@@ -22,14 +25,20 @@ public class Cell {
      * @param player The player that made the move. 
      * @param Level The level of the move.
      * @param Force Forces the {@value Level} into the cell
-     * @throws Exception 
+     * @throws LevelOutOfBounds Throws when the level is out of bounds. 
+     *                          see {@link Exceptions.LevelOutOfBounds} for more details
+     * @throws InvalidLevel Throws when the level is incompatible with the current level of the cell
+     *                          see {@link InvalidLevel} for more details.
+     * @throws NullPointerException Throws when the player is null and the {@code Force } flag is set to false.
      */
-    public void makeMove(Player player, int Level, boolean Force) throws Exception{
+    public void makeMove(Player player, int Level, boolean Force) throws LevelOutOfBounds, InvalidLevel{
         if(!Force){
             if(Level > Rules.MAX_LEVEL || Level < 0)
-                throw new Exception("Level of " + Level + " is out of bounds");    
+                throw new LevelOutOfBounds();
             if(Level <= CurrentLevel)
-                throw new InvalidAttributesException("Level of " + Level + " is not bigger than the current cell level of " + CurrentLevel);
+                throw new InvalidLevel();
+            if(player == null)
+                throw new NullPointerException("Player can not be null");
         }
 
         this.Player = player;
